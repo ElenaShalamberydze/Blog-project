@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Articles Tags</title>
+</head>
+<body>
+
+<h1>Blog</h1>
+<hr width="20%" align="left"/>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+<br/>
+
+<table>
+    <tr>
+        <td><a href="/articles">main</a></td>
+    </tr>
+    <tr>
+        <td><a href="/my">show my articles</a></td>
+    </tr>
+    <tr>
+        <td><a href="/tags-cloud">tags cloud</a></td>
+    </tr>
+</table>
+<br/>
+<div th:if="${!articles.isEmpty()}">
+<table th:each="article : ${articles}">
+    <tr>
+        <th th:text="${article.title}"></th>
+        <td th:text="${article.text}"></td>
+    </tr>
+    <tr>
+        <table>
+            <td align="left" th:each="tag : ${article.tags}"><em th:text="${tag.name}"/></td>
+        </table>
+    </tr>
+    <tr>
+        <td th:text="${article.updatedAt != null} ? ${article.updatedAt} : ${article.createdAt}"></td>
+    </tr>
+    <tr>
+        <td th:text="${article.user.firstName} + ' ' + ${article.user.lastName} "></td>
+    </tr>
+    <tr>
+        <td>
+            <a th:href="@{/articles/{id}/comments(id=${article.id})}">show with comments</a>
+        </td> <br/> <br/>
+    </tr> <br/>
+</table>
+</div>
+</body>
+</html>

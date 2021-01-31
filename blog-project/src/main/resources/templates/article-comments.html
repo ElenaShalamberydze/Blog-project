@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Articles Comments</title>
+</head>
+<body>
+
+<h1>Blog</h1>
+<hr width="20%" align="left"/>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+<br/>
+
+<table>
+    <tr>
+        <td><a href="/articles">main</a></td>
+    </tr>
+    <tr>
+        <td><a href="/my">show my articles</a></td>
+    </tr>
+    <tr>
+        <td><a href="/tags-cloud">tags cloud</a></td>
+    </tr>
+</table>
+
+<br />
+<br />
+
+<form action="#" th:action="@{/articles/{id}/comments(id=${article.id})}" method="post">
+    <label for="message">Message</label>
+    <input type="text" name="message" id="message" placeholder="Message" value="" required>
+    <input type="submit" value="Add Comment">
+</form>
+
+<br />
+<table>
+    <tr>
+        <th th:text="${article.title}"></th>
+        <td th:text="${article.text}"></td>
+    </tr>
+    <tr>
+        <table>
+            <td align="left" th:each="tag : ${article.tags}"><em th:text="${tag.name}"/></td>
+        </table>
+    </tr>
+    <tr>
+        <td th:text="${article.updatedAt != null}
+            ? ${article.updatedAt}
+            : ${article.createdAt}">
+
+        </td>
+    </tr>
+</table>
+<hr width="20%" align="left"/>
+<div th:if="${comments} != null">
+
+    <div th:if="${comments.totalPages > 0}" class="pagination"
+         th:each="pageNumber : ${pageNumbers}">
+        <a th:href="@{/articles/{id}/comments(id=${article.id}, size=${comments.size}, page=${pageNumber-1})}"
+           th:text=${pageNumber}
+           th:class="${pageNumber==comments.number + 1} ? active"></a>
+    </div>
+
+<table th:each="comment : ${comments.getContent()}">
+    <tr>
+        <td th:text="${comment.message}"></td>
+    </tr>
+    <tr>
+        <td th:text="${comment.createdAt}"></td>
+        <th th:text="${comment.user.firstName} + ' ' + ${comment.user.lastName}"></th>
+        <td>
+            <a th:href="@{/articles/{id}/comments/{commentId}(id=${article.id}, commentId=${comment.id})}">show comment</a>
+        </td>
+    </tr><br />
+</table>
+</div>
+</body>
+</html>

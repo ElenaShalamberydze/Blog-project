@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Tags Cloud</title>
+</head>
+<body>
+
+<h1>Blog</h1>
+<hr width="20%" align="left"/>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+<br/>
+
+<table>
+    <tr>
+        <td><a href="/articles">main</a></td>
+    </tr>
+    <tr>
+        <td><a href="/my">show my articles</a></td>
+    </tr>
+    <tr>
+        <td><a href="/tags-cloud">tags cloud</a></td>
+    </tr>
+</table>
+<br/>
+<div th:if="${!tagsCloud.isEmpty()}">
+<table th:each="tagCloud : ${tagsCloud}">
+    <tr>
+        <td th:text="'tag: ' + ${tagCloud.tag}" ></td>
+        <td th:text="'post-count: ' + ${tagCloud.postCount}"></td>
+    </tr><br />
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>My Articles</title>
+</head>
+<body>
+
+<h1>Blog</h1>
+<hr width="20%" align="left"/>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+<br/>
+
+<table>
+    <tr>
+        <td><a href="/articles">main</a></td>
+    </tr>
+    <tr>
+        <td><a href="/my">show my articles</a></td>
+    </tr>
+    <tr>
+        <td><a href="/tags-cloud">tags cloud</a></td>
+    </tr>
+</table>
+<br/>
+
+<div th:if="${!articles.isEmpty()}">
+<b th:text="'Articles of user:  ' + ${articles[0].user.firstName} + '  ' + ${articles[0].user.lastName} " />
+<br />
+<br />
+<table th:each="article : ${articles}">
+    <tr>
+        <th th:text="${article.title}"></th>
+        <td th:text="${article.text}"></td>
+    </tr>
+    <tr>
+        <td th:text="${article.status}"></td>
+        <td>
+            <form action="#" th:action="@{/articles/{id}/status(id=${article.id})}" method="post">
+                <label for="status">Status: PUBLIC or DRAFT</label>
+                <input type="text" name="status" id="status" placeholder="status" value="" required>
+                <input type="submit" value="Change status">
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td th:text="${article.createdAt}"></td>
+        <td th:text="${article.updatedAt != null} ? ${article.updatedAt}"> </td>
+    </tr>
+    <tr>
+        <table>
+            <td align="left" th:each="tag : ${article.tags}"><em th:text="${tag.name}"/></td>
+        </table>
+    </tr>
+    <tr>
+        <td>
+            <a th:href="@{/articles/{id}/comments(id=${article.id})}">show with comments</a>
+        </td> <br/>
+    </tr>
+    <tr>
+        <td>
+            <form action="#" th:action="@{/articles/{id}(id=${article.id})}" method="get">
+                <input type="submit" value="go to update">
+            </form>
+            <a th:href="@{/articles/{id}(id=${article.id})}"></a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <form action="#" th:action="@{/articles/{id}/delete(id=${article.id})}" method="post">
+                <input type="submit" value="delete">
+            </form>
+        </td><br/>
+    </tr><br/>
+</table>
+</div>
+</body>
+</html>

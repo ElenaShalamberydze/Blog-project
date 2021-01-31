@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Comment</title>
+</head>
+<body>
+
+<h1>Blog</h1>
+<hr width="20%" align="left"/>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+<br/>
+
+<table>
+    <tr>
+        <td><a href="/articles">main</a></td>
+    </tr>
+    <tr>
+        <td><a href="/my">show my articles</a></td>
+    </tr>
+    <tr>
+        <td><a href="/tags-cloud">tags cloud</a></td>
+    </tr>
+</table>
+<br/>
+
+<table>
+    <tr>
+        <td th:text="${comment.message}"></td>
+    </tr>
+    <tr>
+        <td th:text="${comment.createdAt}"></td>
+    </tr>
+    <tr>
+        <td th:text="${comment.user.firstName} + ' ' + ${comment.user.lastName}"></td>
+    </tr>
+    <tr>
+        <td>
+            <form action="#"
+                  th:action="@{/articles/{id}/comments/{commentId}(id=${comment.article.id}, commentId=${comment.id})}"
+                  method="post">
+                <input type="submit" value="Delete comment">
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

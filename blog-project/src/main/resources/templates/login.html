@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Login</title>
+</head>
+<body>
+login page
+<div th:if="${param.error}">
+    Invalid username and/or password.
+</div>
+<div th:if="${param.inactive != null}">
+    User havent been activated yet check you email for activation link!
+</div>
+<form th:action="@{/login}" method="post">
+    <div><label> User email : <input type="email" name="username" required/> </label></div>
+    <div><label> Password: <input type="password" name="password" required/> </label></div>
+    <div><input type="submit" value="Login"/></div>
+</form>
+</body>
+</html>

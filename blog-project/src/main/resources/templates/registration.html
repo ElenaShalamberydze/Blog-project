@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Registration</title>
+</head>
+<body>
+<h1>Blog</h1>
+<hr width="20%" align="left"/>
+
+<table sec:authorize="isAnonymous()">
+    <td>
+        <form th:action="@{/login}" method="get">
+            <input type="submit" value="Login"/>
+        </form>
+    </td>
+    <td>
+        <form th:action="@{/registration}" method="get">
+            <input type="submit" value="Register"/>
+        </form>
+    </td>
+</table>
+<br/>
+<h4>Fill all fields and press register:
+you ll be sent an activation link to the email specified
+</h4> <br />
+
+<form action="#" th:action="@{/registration}" method="post">
+    <label for="firstName">Name</label>
+    <input type="text" name="firstName" id="firstName" placeholder="Name" value="" required>
+    <label for="lastName">Surname</label>
+    <input type="text" name="lastName" id="lastName" placeholder="Surname" value="" required>
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" placeholder="Email" value="" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" placeholder="Password" value="" required>
+    <input type="submit" value="register">
+</form>
+
+</body>
+</html>
