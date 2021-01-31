@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Error</title>
+</head>
+<body>
+
+<h1>Blog</h1>
+<hr width="20%" align="left"/>
+<table sec:authorize="isAnonymous()">
+    <td>
+        <form th:action="@{/login}" method="get">
+            <input type="submit" value="Login"/>
+        </form>
+    </td>
+    <td>
+        <form th:action="@{/registration}" method="get">
+            <input type="submit" value="Register"/>
+        </form>
+    </td>
+</table>
+<br/>
+<div sec:authorize="isAuthenticated()">
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
+<br/>
+<div><a href="/articles">main</a></div>
+<br/>
+<div th:text="${message != null} ? ${message}" > </div>
+<br />
+<h4 th:if="${message == null}">Something went wrong! We are trying to do our best to fix the problem as soon as possible</h4>
+</body>
+</html>

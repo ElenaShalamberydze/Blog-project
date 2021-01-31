@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Update Article</title>
+</head>
+<body>
+
+<h1>Blog</h1>
+<hr width="20%" align="left"/>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+<br/>
+
+<table>
+    <tr>
+        <td><a href="/articles">main</a></td>
+    </tr>
+    <tr>
+        <td><a href="/my">show my articles</a></td>
+    </tr>
+    <tr>
+        <td><a href="/tags-cloud">tags cloud</a></td>
+    </tr>
+</table>
+<br/>
+
+<form action="#" th:action="@{/articles/{id}(id=${article.id})}" method="post">
+    <label for="title">Title</label>
+    <input type="text" name="title" id="title" placeholder="Title" th:value="${article.title}" required>
+    <label for="text">Text</label>
+    <input type="text" name="text" id="text" placeholder="Text" th:value="${article.text}" required>
+    <label for="status">Status</label>
+    <input type="text" name="status" id="status" placeholder="Status" th:value="${article.status}" required>
+    <label for="tags">Tags</label>
+    <input type="text" name="tags" id="tags" placeholder="Tags" th:value="${tags != null} ? ${tags} : 'Tags'">
+    <input type="submit" value="Update article">
+</form>
+<br />
+
+</body>
+</html>
